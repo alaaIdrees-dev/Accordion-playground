@@ -1,0 +1,218 @@
+.accordion {
+  width: 100%;
+}
+
+/* ---------- Bordered variant: one shared container, hairline dividers ---------- */
+.accordion--bordered {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.accordion--bordered .accordion-item + .accordion-item {
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---------- Separated variant: each item is its own elevated card ---------- */
+.accordion--separated .accordion-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-3);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.accordion--separated .accordion-item:last-child {
+  margin-bottom: 0;
+}
+.accordion--separated .accordion-item.is-open {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+.accordion--separated .accordion-item.is-disabled {
+  box-shadow: none;
+}
+
+/* ---------- Minimal variant: flat, text-led, divider lines only ---------- */
+.accordion--minimal .accordion-item + .accordion-item {
+  border-top: 1px solid var(--color-border);
+}
+.accordion--minimal .accordion-trigger {
+  padding-left: 0;
+  padding-right: 0;
+  background: transparent;
+}
+.accordion--minimal .accordion-trigger:hover:not(:disabled) {
+  background: transparent;
+  color: var(--color-primary);
+}
+.accordion--minimal .accordion-panel-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ---------- Trigger (shared across variants) ---------- */
+.accordion-item-heading {
+  margin: 0;
+}
+
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: none;
+  border-radius: inherit;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.accordion-trigger--icon-end {
+  justify-content: space-between;
+}
+.accordion-trigger-text {
+  flex: 1;
+}
+.accordion-trigger:hover:not(:disabled) {
+  background: var(--color-soft-burgundy);
+}
+.accordion-trigger:active:not(:disabled) {
+  background: color-mix(in srgb, var(--color-soft-burgundy) 70%, var(--color-primary) 10%);
+}
+.accordion-item.is-open > .accordion-item-heading .accordion-trigger {
+  color: var(--color-primary);
+}
+.accordion-trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+.accordion-trigger:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-secondary);
+}
+
+.accordion-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+.accordion-trigger:disabled .accordion-icon {
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+}
+.accordion-icon svg {
+  display: block;
+  transition: transform var(--transition-base);
+}
+.accordion-item.is-open .accordion-icon--chevron svg {
+  transform: rotate(180deg);
+}
+.accordion-item.is-open .accordion-icon--plus svg {
+  transform: rotate(45deg);
+}
+.accordion-item.is-open .accordion-icon--arrow svg {
+  transform: rotate(90deg);
+}
+
+/* ---------- Panel: grid-row trick animates height without JS measurement ---------- */
+.accordion-panel-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-slow);
+}
+.accordion-item.is-open .accordion-panel-wrapper {
+  grid-template-rows: 1fr;
+}
+.accordion-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.accordion-panel-content {
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ---------- Disabled item ---------- */
+.accordion-item.is-disabled .accordion-trigger-text {
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Loading skeleton ---------- */
+.accordion--loading {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.accordion-skeleton-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+.accordion-skeleton-row + .accordion-skeleton-row {
+  border-top: 1px solid var(--color-border);
+}
+.accordion-skeleton-bar {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-soft-burgundy) 25%,
+    #ffffff 37%,
+    var(--color-soft-burgundy) 63%
+  );
+  background-size: 400% 100%;
+  animation: accordion-shimmer 1.5s ease infinite;
+}
+.accordion-skeleton-bar--icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.accordion-skeleton-bar--text {
+  height: 14px;
+  flex: 1;
+}
+@keyframes accordion-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* ---------- Empty search state ---------- */
+.accordion--empty {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+.accordion-empty-message {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-icon svg,
+  .accordion-panel-wrapper,
+  .accordion-item {
+    transition: none !important;
+  }
+  .accordion-skeleton-bar {
+    animation: none;
+  }
+}

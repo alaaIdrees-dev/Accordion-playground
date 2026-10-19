@@ -1,0 +1,117 @@
+.code-preview {
+  grid-column: 1 / -1;
+  background: var(--editor-bg);
+  border: 1px solid var(--editor-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.code-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--editor-bg-header);
+  border-bottom: 1px solid var(--editor-border);
+}
+
+.code-preview-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--editor-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.code-preview-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+.code-preview-badge {
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  color: var(--editor-text);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.code-copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.code-copy-button:hover {
+  background: var(--color-primary-hover);
+}
+.code-copy-button:active {
+  transform: translateY(1px);
+}
+.code-copy-button:focus-visible {
+  outline: 2px solid var(--editor-text);
+  outline-offset: 2px;
+}
+
+.code-preview-body {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.code-preview-body code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--editor-text);
+  white-space: pre;
+}
+
+.tok-kw {
+  color: var(--editor-keyword);
+}
+.tok-tag {
+  color: var(--editor-tag);
+  font-weight: 600;
+}
+.tok-fn {
+  color: var(--editor-fn);
+}
+.tok-attr {
+  color: var(--editor-attr);
+}
+.tok-str {
+  color: var(--editor-string);
+}
+
+.code-copy-status {
+  min-height: 1.5em;
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-3);
+  color: var(--editor-text);
+  font-size: 0.8125rem;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-copy-button {
+    transition: none;
+  }
+}
